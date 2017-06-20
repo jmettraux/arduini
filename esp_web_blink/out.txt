@@ -119,3 +119,23 @@ Sketch uses 222201 bytes (21%) of program storage space. Maximum is 1044464 byte
 Global variables use 31528 bytes (38%) of dynamic memory, leaving 50392 bytes for local variables. Maximum is 81920 bytes.
 Uploading 226352 bytes from /var/folders/nc/k69p4qld1lzgtr6ktqwkvxn40000gn/T/arduino_build_699676/Blink.ino.bin to flash at 0x00000000
 ..........................................
+
+
+#/Applications/Arduino.app/Contents/Java/arduino-builder
+#-compile -logger=machine
+#-hardware /Applications/Arduino.app/Contents/Java/hardware
+#-hardware /Users/jmettraux/Library/Arduino15/packages
+#-tools /Applications/Arduino.app/Contents/Java/tools-builder
+#-tools /Applications/Arduino.app/Contents/Java/hardware/tools/avr
+#-tools /Users/jmettraux/Library/Arduino15/packages
+#-built-in-libraries /Applications/Arduino.app/Contents/Java/libraries
+#-libraries /Users/jmettraux/Documents/Arduino/libraries
+#-fqbn=esp8266:esp8266:nodemcuv2:CpuFrequency=160,UploadSpeed=115200,FlashSize=4M3M
+#-ide-version=10802
+#-build-path /var/folders/nc/k69p4qld1lzgtr6ktqwkvxn40000gn/T/arduino_build_699676
+#-warnings=none
+#-build-cache /var/folders/nc/k69p4qld1lzgtr6ktqwkvxn40000gn/T/arduino_cache_144344
+#-prefs=build.warn_data_percentage=75
+#-prefs=runtime.tools.mkspiffs.path=/Users/jmettraux/Library/Arduino15/packages/esp8266/tools/mkspiffs/0.1.2 -prefs=runtime.tools.esptool.path=/Users/jmettraux/Library/Arduino15/packages/esp8266/tools/esptool/0.4.9
+#-prefs=runtime.tools.xtensa-lx106-elf-gcc.path=/Users/jmettraux/Library/Arduino15/packages/esp8266/tools/xtensa-lx106-elf-gcc/1.20.0-26-gb404fb9-2
+#-verbose /Users/jmettraux/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/libraries/esp8266/examples/Blink/Blink.ino
