@@ -14,6 +14,7 @@ UPLOAD_SPEED:=115200
 
 all:
 	mkdir -p $(TARGET_DIR)
+	rm -fR $(TARGET_DIR)/sketch
 
 	$(ARDUINO_DIR)/arduino-builder -compile -logger=machine \
       -hardware "$(ARDUINO_DIR)/hardware" \
