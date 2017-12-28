@@ -24,19 +24,16 @@ void motorBackward() {
 void motorLeft() {
   digitalWrite(D5, HIGH); digitalWrite(D6, LOW); digitalWrite(D7, HIGH);
   digitalWrite(D0, HIGH); digitalWrite(D1, LOW); digitalWrite(D2, HIGH);
-  delay(500); motorStop();
+  delay(250); motorStop();
 }
 void motorRight() {
   digitalWrite(D5, LOW); digitalWrite(D6, HIGH); digitalWrite(D7, HIGH);
   digitalWrite(D0, LOW); digitalWrite(D1, HIGH); digitalWrite(D2, HIGH);
-  delay(500); motorStop();
+  delay(250); motorStop();
 }
 
 
 void setup() {
-
-  Serial.begin(115200);
-  delay(10);
 
   pinMode(D5, OUTPUT);
   pinMode(D6, OUTPUT);
@@ -47,6 +44,10 @@ void setup() {
   pinMode(D2, OUTPUT); // EN3,4
 
   motorStop();
+
+  // Kick in serial
+  Serial.begin(115200);
+  delay(10);
 
   // Connect to WiFi network
   Serial.println();
@@ -106,13 +107,52 @@ void loop() {
   client.println(""); //  do not forget this one
   client.println("<!DOCTYPE HTML>");
   client.println("<html>");
+  client.println("<head>");
+  client.println("<style>");
+  client.println("  body {");
+  client.println("    font-size: 200%;");
+  client.println("  }");
+  client.println("  table {");
+  client.println("    width: 100%;");
+  client.println("  }");
+  client.println("  td {");
+  client.println("    width: 49%;");
+  client.println("    text-align: center;");
+  client.println("    height: 7em;");
+  client.println("    pointer: cursor;");
+  client.println("    color: white;");
+  client.println("  }");
+  client.println("  td.forward {");
+  client.println("    background-color: blue;");
+  client.println("  }");
+  client.println("  td.backward {");
+  client.println("    background-color: green;");
+  client.println("  }");
+  client.println("  td.left {");
+  client.println("    background-color: green;");
+  client.println("  }");
+  client.println("  td.right {");
+  client.println("    background-color: blue;");
+  client.println("  }");
+  client.println("</style>");
+  client.println("</head>");
 
-  client.println("<br><br>");
-  client.println("<a href=\"/FORWARD\"\"><button>FORWARD</button></a>");
-  client.println("<a href=\"/BACKWARD\"\"><button>BACKWARD</button></a><br />");
-  client.println("<br>");
-  client.println("<a href=\"/LEFT\"\"><button>LEFT</button></a>");
-  client.println("<a href=\"/RIGHT\"\"><button>RIGHT</button></a><br />");
+  client.println("<table>");
+  client.println("  <tr>");
+  client.println("    <td class=\"forward\" onclick=\"forward();\">FORWARD</td>");
+  client.println("    <td class=\"backward\" onclick=\"backward();\">BACKWARD</td>");
+  client.println("  </tr>");
+  client.println("  <tr>");
+  client.println("    <td class=\"left\" onclick=\"left();\">LEFT</td>");
+  client.println("    <td class=\"right\" onclick=\"right();\">RIGHT</td>");
+  client.println("  </tr>");
+  client.println("</table>");
+  client.println("<script>");
+  client.println("  function forward() { window.location.href = '/FORWARD'; }");
+  client.println("  function backward() { window.location.href = '/BACKWARD'; }");
+  client.println("  function left() { window.location.href = '/LEFT'; }");
+  client.println("  function right() { window.location.href = '/RIGHT'; }");
+  client.println("</script>");
   client.println("</html>");
 
   delay(1);
