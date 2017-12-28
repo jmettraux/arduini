@@ -44,4 +44,5 @@ clean:
 monitor:
 	#screen $(ESP_PORT) 9600
 	screen $(ESP_PORT) 115200
+mon: monitor
 

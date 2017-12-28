@@ -5,38 +5,27 @@
 
 WiFiServer server(80);
 
-void motorStop() {
 
-  digitalWrite(D5, LOW);
-  digitalWrite(D6, LOW);
-  digitalWrite(D7, LOW);
+void motorWrite(int a, int b) {
 
-  digitalWrite(D0, LOW);
-  digitalWrite(D1, LOW);
-  digitalWrite(D2, LOW);
+//Serial.printf("motorWrite(%d, %d);\n", a, b);
+  digitalWrite(D5, (a > 0 ? HIGH : LOW));
+  digitalWrite(D6, (a < 0 ? LOW : HIGH));
+  digitalWrite(D7, (a == 0 ? LOW : HIGH));
+
+  digitalWrite(D0, (b > 0 ? HIGH : LOW));
+  digitalWrite(D1, (b < 0 ? LOW : HIGH));
+  digitalWrite(D2, (b == 0 ? LOW : HIGH));
 }
 
-void motorForward() {
+void motorStop() { motorWrite(0, 0); }
 
-  digitalWrite(D5, HIGH);
-  digitalWrite(D6, LOW);
-  digitalWrite(D7, HIGH);
+void motorForward() { motorWrite(1, 1); delay(1000); motorStop(); }
+void motorBackward() { motorWrite(-1, -1); delay(1000); motorStop(); }
 
-  digitalWrite(D0, LOW);
-  digitalWrite(D1, HIGH);
-  digitalWrite(D2, HIGH);
-}
+void motorLeft() { motorWrite(-1, 1); delay(500); motorStop(); }
+void motorRight() { motorWrite(1, -1); delay(500); motorStop(); }
 
-void motorBackward() {
-
-  digitalWrite(D5, LOW);
-  digitalWrite(D6, HIGH);
-  digitalWrite(D7, HIGH);
-
-  digitalWrite(D0, HIGH);
-  digitalWrite(D1, LOW);
-  digitalWrite(D2, HIGH);
-}
 
 void setup() {
 
@@ -101,8 +90,8 @@ void loop() {
 
   if (request.indexOf("/FORWARD") != -1) motorForward();
   else if (request.indexOf("/BACKWARD") != -1) motorBackward();
-  delay(1000);
-  motorStop();
+  else if (request.indexOf("/LEFT") != -1) motorLeft();
+  else if (request.indexOf("/RIGHT") != -1) motorRight();
 
   // Return the response
 
@@ -115,6 +104,9 @@ void loop() {
   client.println("<br><br>");
   client.println("<a href=\"/FORWARD\"\"><button>FORWARD</button></a>");
   client.println("<a href=\"/BACKWARD\"\"><button>BACKWARD</button></a><br />");
+  client.println("<br>");
+  client.println("<a href=\"/LEFT\"\"><button>LEFT</button></a>");
+  client.println("<a href=\"/RIGHT\"\"><button>RIGHT</button></a><br />");
   client.println("</html>");
 
   delay(1);
