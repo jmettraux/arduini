@@ -12,9 +12,18 @@ void setup() {
   pinMode(D5, OUTPUT);
   pinMode(D6, OUTPUT);
   pinMode(D7, OUTPUT); // EN1,2
+
+  pinMode(D0, OUTPUT);
+  pinMode(D1, OUTPUT);
+  pinMode(D2, OUTPUT); // EN3,4
+
   digitalWrite(D5, HIGH);
   digitalWrite(D6, LOW);
   digitalWrite(D7, HIGH);
+
+  digitalWrite(D0, HIGH);
+  digitalWrite(D1, LOW);
+  digitalWrite(D2, HIGH);
 }
 
 //  // Connect to WiFi network
