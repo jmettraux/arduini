@@ -13,22 +13,22 @@ UPLOAD_SPEED:=115200
 
 
 all:
-	@mkdir -p $(TARGET_DIR)
+	mkdir -p $(TARGET_DIR)
 
 	$(ARDUINO_DIR)/arduino-builder -compile -logger=machine \
-	  -hardware "$(ARDUINO_DIR)/hardware" \
+      -hardware "$(ARDUINO_DIR)/hardware" \
       -hardware "$(ARDUINO_MORE)/packages" \
-	  -tools "$(ARDUINO_DIR)/tools-builder" \
-	  -tools "$(ARDUINO_DIR)/hardware/tools/avr" \
-	  -tools "$(ARDUINO_MORE)/packages" \
-	  -built-in-libraries "$(ARDUINO_DIR)/libraries" \
-	  -fqbn=esp8266:esp8266:nodemcuv2:CpuFrequency=$(CPU_FREQUENCY),UploadSpeed=$(UPLOAD_SPEED),FlashSize=4M3M \
-	  -ide-version=10802 \
-	  -build-path "$(TARGET_DIR)" \
-	  -warnings=none \
-	  -prefs=build.warn_data_percentage=75 \
-	  -verbose "$(SKETCH)"
-      #-libraries "$(CURDIR)/libraries" \
+      -tools "$(ARDUINO_DIR)/tools-builder" \
+      -tools "$(ARDUINO_DIR)/hardware/tools/avr" \
+      -tools "$(ARDUINO_MORE)/packages" \
+      -built-in-libraries "$(ARDUINO_DIR)/libraries" \
+      -fqbn=esp8266:esp8266:nodemcuv2:CpuFrequency=$(CPU_FREQUENCY),UploadSpeed=$(UPLOAD_SPEED),FlashSize=4M3M \
+      -ide-version=10802 \
+      -build-path "$(TARGET_DIR)" \
+      -warnings=none \
+      -prefs=build.warn_data_percentage=75 \
+      -libraries "$(CURDIR)/libs" \
+      -verbose "$(SKETCH)"
 
 flash:
 	$(ESPTOOL) -v -cd nodemcu \

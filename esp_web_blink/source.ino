@@ -1,8 +1,9 @@
 
 #include <ESP8266WiFi.h>
+#include ".wifi.h"
 
-#define WIFI_SSID "Rivendell"
-#define WIFI_PASS "xxx"
+//#define WIFI_SSID "Fondcombe"
+//#define WIFI_PASS "xxx"
 
 
 const int ledPin = 13; // GPIO13
