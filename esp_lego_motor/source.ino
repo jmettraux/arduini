@@ -6,25 +6,31 @@
 WiFiServer server(80);
 
 
-void motorWrite(int a, int b) {
-
-//Serial.printf("motorWrite(%d, %d);\n", a, b);
-  digitalWrite(D5, (a > 0 ? HIGH : LOW));
-  digitalWrite(D6, (a < 0 ? LOW : HIGH));
-  digitalWrite(D7, (a == 0 ? LOW : HIGH));
-
-  digitalWrite(D0, (b > 0 ? HIGH : LOW));
-  digitalWrite(D1, (b < 0 ? LOW : HIGH));
-  digitalWrite(D2, (b == 0 ? LOW : HIGH));
+void motorStop() {
+  digitalWrite(D5, LOW); digitalWrite(D6, LOW); digitalWrite(D7, LOW);
+  digitalWrite(D0, LOW); digitalWrite(D1, LOW); digitalWrite(D2, LOW);
+}
+void motorForward() {
+  digitalWrite(D5, HIGH); digitalWrite(D6, LOW); digitalWrite(D7, HIGH);
+  digitalWrite(D0, LOW); digitalWrite(D1, HIGH); digitalWrite(D2, HIGH);
+  delay(1000); motorStop();
+}
+void motorBackward() {
+  digitalWrite(D5, LOW); digitalWrite(D6, HIGH); digitalWrite(D7, HIGH);
+  digitalWrite(D0, HIGH); digitalWrite(D1, LOW); digitalWrite(D2, HIGH);
+  delay(1000); motorStop();
 }
 
-void motorStop() { motorWrite(0, 0); }
-
-void motorForward() { motorWrite(1, 1); delay(1000); motorStop(); }
-void motorBackward() { motorWrite(-1, -1); delay(1000); motorStop(); }
-
-void motorLeft() { motorWrite(-1, 1); delay(500); motorStop(); }
-void motorRight() { motorWrite(1, -1); delay(500); motorStop(); }
+void motorLeft() {
+  digitalWrite(D5, HIGH); digitalWrite(D6, LOW); digitalWrite(D7, HIGH);
+  digitalWrite(D0, HIGH); digitalWrite(D1, LOW); digitalWrite(D2, HIGH);
+  delay(500); motorStop();
+}
+void motorRight() {
+  digitalWrite(D5, LOW); digitalWrite(D6, HIGH); digitalWrite(D7, HIGH);
+  digitalWrite(D0, LOW); digitalWrite(D1, HIGH); digitalWrite(D2, HIGH);
+  delay(500); motorStop();
+}
 
 
 void setup() {
