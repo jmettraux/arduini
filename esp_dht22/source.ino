@@ -16,6 +16,8 @@ char macAddress[64];
 void setup() {
 
   //pinMode(D3, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, HIGH);
 
   // Kick in serial
 
@@ -63,6 +65,8 @@ void loop() {
   //Serial.println("new client");
   while ( ! client.available()) delay(1);
 
+  digitalWrite(LED_BUILTIN, LOW);
+
   // Display request
 
   String request = client.readStringUntil('\r');
@@ -108,5 +112,7 @@ void loop() {
   //delay(1);
 //  Serial.println("Client disconnected");
 //  Serial.println("");
+
+  digitalWrite(LED_BUILTIN, HIGH);
 }
 
