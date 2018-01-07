@@ -10,6 +10,7 @@ WiFiServer server(80);
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
 
 DHT dht(D3, DHTTYPE);
+char macAddress[64];
 
 
 void setup() {
@@ -100,7 +101,8 @@ void loop() {
   client.print("{");
   client.print("\"humidity\":"); client.print(h); client.print(",");
   client.print("\"temperature\":"); client.print(t); client.print(",");
-  client.print("\"heatIndex\":"); client.print(i);
+  client.print("\"heatIndex\":"); client.print(i); client.print(",");
+  client.print("\"mac\":\""); client.print(WiFi.macAddress()); client.print("\"");
   client.print("}");
 
   //delay(1);
