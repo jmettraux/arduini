@@ -59,13 +59,13 @@ void loop() {
 
   // Wait until the client sends some data
 
-  Serial.println("new client");
+  //Serial.println("new client");
   while ( ! client.available()) delay(1);
 
   // Read the first line of the request
 
   String request = client.readStringUntil('\r');
-  Serial.println(request);
+  Serial.print(request);
   client.flush();
 
   // Match the request
@@ -79,9 +79,12 @@ void loop() {
 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
-  Serial.print("-- ");
-  Serial.print(h); Serial.print(" %  / ");
-  Serial.print(t); Serial.println(" C");
+  float i = dht.computeHeatIndex(t, h, false);
+  Serial.print(" -- ");
+  Serial.print(h); Serial.print(" % / ");
+  Serial.print(t); Serial.print(" C / ");
+  Serial.print(i); Serial.print(" C");
+  Serial.println();
 
   // Return the response
 
@@ -90,7 +93,8 @@ void loop() {
   client.println(""); //  do not forget this one
   client.print("{");
   client.print("\"humidity\":"); client.print(h); client.print(",");
-  client.print("\"temperature\":"); client.print(t);
+  client.print("\"temperature\":"); client.print(t); client.print(",");
+  client.print("\"heatIndex\":"); client.print(i);
   client.print("}");
 
   //delay(1);
