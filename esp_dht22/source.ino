@@ -62,10 +62,16 @@ void loop() {
   //Serial.println("new client");
   while ( ! client.available()) delay(1);
 
-  // Read the first line of the request
+  // Display request
 
   String request = client.readStringUntil('\r');
-  Serial.print(request);
+
+  // https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WiFi/src/WiFiClient.h
+
+  Serial.print(request); Serial.print(" from ");
+  Serial.print(client.remoteIP()); Serial.print(":");
+  Serial.print(client.remotePort());
+
   client.flush();
 
   // Match the request
