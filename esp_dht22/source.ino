@@ -17,14 +17,15 @@ void setup() {
   //pinMode(D3, INPUT);
 
   // Kick in serial
+
   Serial.begin(115200);
   dht.begin();
 
   // Connect to WiFi network
+
   Serial.println();
   Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(WIFI_SSID);
+  Serial.print("Connecting to "); Serial.println(WIFI_SSID);
 
   WiFi.begin(WIFI_SSID, WIFI_PASS);
 
@@ -32,15 +33,18 @@ void setup() {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("");
+  Serial.println();
   Serial.println("WiFi connected");
 
   // Start the server
+
   server.begin();
   Serial.println("Server started");
 
   // Print the IP address
-  Serial.print("Use this URL to connect: ");
+
+  Serial.println();
+  Serial.println(WiFi.macAddress());
   Serial.print("http://");
   Serial.print(WiFi.localIP());
   Serial.println("/");
