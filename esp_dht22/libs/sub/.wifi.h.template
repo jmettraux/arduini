@@ -1,0 +1,4 @@
+
+#define WIFI_SSID "Fondcombe"
+#define WIFI_PASS "xxx"
+
