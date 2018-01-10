@@ -76,13 +76,19 @@ void setup() {
     HTTPClient http;
 
     http.begin(uri);
-    //http.addHeader("Content-Type", "application/json");
 
-    int httpCode = http.GET();
+    for (int i = 0; i < 3; i++) {
 
-    Serial.print(uri);
-    Serial.print(" returned ");
-    Serial.println(httpCode);
+      int httpCode = http.GET();
+
+      Serial.print(uri);
+      Serial.print(" returned ");
+      Serial.println(httpCode);
+
+      if (httpCode == 200) break;
+
+      delay(500);
+    }
   }
 
   // Sleep deep
