@@ -12,7 +12,7 @@
 
 #define SERVER "http://10.0.1.6:8080/"
 
-#define DEEP_SLEEP_TIME 60 // seconds
+#define DEEP_SLEEP_TIME 9 // minutes
 
 DHT dht(D3, DHTTYPE);
 
@@ -29,18 +29,8 @@ void setup() {
   while ( ! Serial) {}
 
   dht.begin();
-  delay(500);
 
   Serial.print("\nawake...");
-
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-  float i = dht.computeHeatIndex(t, h, false);
-  Serial.print(" -- ");
-  Serial.print(h); Serial.print(" % / ");
-  Serial.print(t); Serial.print(" C / ");
-  Serial.print(i); Serial.print(" C");
-  Serial.println();
 
   // Connect to WiFi network
 
@@ -50,36 +40,54 @@ void setup() {
 
   WiFi.begin(WIFI_SSID, WIFI_PASS);
 
-  while (WiFi.status() != WL_CONNECTED) {
-    // TODO limit attempts
+  for (int i = 0; i < 21; i++) {
     delay(500);
     Serial.print(".");
+    if (WiFi.status() == WL_CONNECTED) break;
   }
 
-  Serial.println();
-  Serial.print(WiFi.macAddress());
-  Serial.print(" connected as ");
-  Serial.println(WiFi.localIP());
+  if (WiFi.status() == WL_CONNECTED) {
+
+    Serial.println();
+    Serial.print(WiFi.macAddress());
+    Serial.print(" connected as ");
+    Serial.println(WiFi.localIP());
+  }
 
   // well, GET data
 
-  HTTPClient http;
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+  float i = dht.computeHeatIndex(t, h, false);
+  //Serial.print(" -- ");
+  //Serial.print(h); Serial.print(" % / ");
+  //Serial.print(t); Serial.print(" C / ");
+  //Serial.print(i); Serial.print(" C");
+  //Serial.println();
 
   String uri = SERVER;
   uri += "?h="; uri += h;
   uri += "&t="; uri += t;
   uri += "&i="; uri += i;
   uri += "&m="; uri += WiFi.macAddress();
-  Serial.println(uri);
 
-  http.begin(uri);
-  //http.addHeader("Content-Type", "application/json");
+  if (WiFi.status() == WL_CONNECTED) {
 
-  int httpCode = http.GET();
+    HTTPClient http;
+
+    http.begin(uri);
+    //http.addHeader("Content-Type", "application/json");
+
+    int httpCode = http.GET();
+
+    Serial.print(uri);
+    Serial.print(" returned ");
+    Serial.println(httpCode);
+  }
 
   // Sleep deep
 
-  ESP.deepSleep(DEEP_SLEEP_TIME * 1e6);
+  ESP.deepSleep(DEEP_SLEEP_TIME * 60 * 1e6);
 }
 
 void loop() {
