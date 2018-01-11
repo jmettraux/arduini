@@ -65,23 +65,30 @@ void setup() {
   //Serial.print(i); Serial.print(" C");
   //Serial.println();
 
+  int v = analogRead(A0);
+  //Serial.print("v: "); Serial.println(v);
+
   String uri = SERVER;
   uri += "?h="; uri += h;
   uri += "&t="; uri += t;
   uri += "&i="; uri += i;
   uri += "&m="; uri += WiFi.macAddress();
+  uri += "&v="; uri += v;
 
   if (WiFi.status() == WL_CONNECTED) {
 
     HTTPClient http;
 
-    http.begin(uri);
-
     for (int i = 0; i < 3; i++) {
+
+      String u = uri;
+      u += "&y="; u += i; // 'y' for "try"
+
+      http.begin(u);
 
       int httpCode = http.GET();
 
-      Serial.print(uri);
+      Serial.print(u);
       Serial.print(" returned ");
       Serial.println(httpCode);
 
