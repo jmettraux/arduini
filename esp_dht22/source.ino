@@ -67,6 +67,11 @@ void setup() {
 
   int v = analogRead(A0);
   //Serial.print("v: "); Serial.println(v);
+    //
+    // v =~ 158 USB 5V
+    // v =~ 161 4 * 1.2V eneloop battery
+    // v =~ 208 4 * 1.5V alkalin battery
+    // v =~ 260 9V battery
 
   String uri = SERVER;
   uri += "?h="; uri += h;
